@@ -1,1 +1,3 @@
 # square_solver
+
+educational
