@@ -1,5 +1,6 @@
-#ifndef UTILS_H_
-#define UTILS_H_
+// utils.h                                                           -*-C++-*-
+#ifndef INCLUDED_SQUARE_SOLVER_UTILS
+#define INCLUDED_SQUARE_SOLVER_UTILS
 
 #include <bitset>
 #include <iomanip>
@@ -7,10 +8,10 @@
 #include <math.h>
 #include <vector>
 
-#include "ringbuffer.h"
 #include "trey.h"
+#include "ringbuffer.h"
 
-namespace utils {
+namespace utils{
 
 /* thread producer function */
 void producer(int &ntasks, char *ctasks[], ringbuffer::RingBuffer &rb);
@@ -20,10 +21,10 @@ void consumer(int &ntasks, ringbuffer::RingBuffer &rb);
 
 /*------------------------------------------------------------------------*\
  producer_worker is the main worker in the producer-thread.
- It obtains char *stask from *argv[], and casts char into integer,
+ It obtains char *msg from *argv[], and casts it as num,
  returning true if it is garbage, and false otherwise
 \*------------------------------------------------------------------------*/
-bool producer_worker(char *stask, int &val);
+bool producer_worker(char *msg, int &num);
 
 /*------------------------------------------------------------------------*\
  consumer_worker is the main worker in the consumer-thread.
@@ -32,12 +33,10 @@ bool producer_worker(char *stask, int &val);
 \*------------------------------------------------------------------------*/
 void consumer_worker(int const &a, int const &b, int const &c, int const &mask);
 
-/*------------------------------------------------------------------------*\
-TypeTray contains  all possible combinations of zeros and NaN's in the trey
-0 at the position means 0;
-x at the position means NaN
-\*------------------------------------------------------------------------*/
-enum TypeTrey {
+// TreyType contains  all possible combinations of zeros and NaN's in the trey
+// 0 at the position means 0;
+// x at the position means NaN
+enum TreyType {
   /*  no NaN's */
   e_ABC = 0,  // no zeros, no NaNs
   e_0BC = 1,  // a=0

@@ -6,10 +6,10 @@
 
 #include "utils.h"
 
-/* thread producer function */
-void utils::producer(int &ntasksp1, char *ctasks[],
-                     ringbuffer::RingBuffer &rb) {
-  int val = 0, mask = 0, ntasks = ntasksp1 - 1;
+void utils::producer(int &ntasksp1, char*ctasks[], ringbuffer::RingBuffer&rb){
+// thread producer function 
+  
+  int num = 0, mask = 0, ntasks = ntasksp1 - 1;
   std::vector<bool> flags(3, true);
 
   // lambda push_mask pushes NaNs flag encoded with int mask into rb
@@ -24,19 +24,19 @@ void utils::producer(int &ntasksp1, char *ctasks[],
   };
 
   for (int i = 1; i < ntasksp1; ++i) {
-    int idx_of_trey = (i % ntrey);
-    // idx_of_trey = 1, the 1st element (a) is in the trey
-    // idx_of_trey = 2, the 2nd element (b) is in the trey
-    // idx_of_trey = 0, the 3rd element (c), i.e. the trey is full,
-    bool trey_ready = (idx_of_trey == 0);
+    int trey_pos = (i % ntrey);
+    // trey_pos = 1, the 1st element (a) is in the trey
+    // trey_pos = 2, the 2nd element (b) is in the trey
+    // trey_pos = 0, the 3rd element (c), i.e. the trey is full,
+    bool trey_ready = (trey_pos == 0);
     bool trey_last = (i == ntasks);
 
-    flags[idx_of_trey] = producer_worker(ctasks[i], val);
+    flags[trey_pos] = producer_worker(ctasks[i], num);
 
-    while (!rb.push(val))
+    while (!rb.push(num))
       ;
 #ifdef DEBUG
-    std::cout << "push  val = " << val << "; " << std::endl;
+    std::cout << "push  num = " << num << "; " << std::endl;
 #endif
     if (trey_ready) {
       push_mask();
@@ -49,13 +49,13 @@ void utils::producer(int &ntasksp1, char *ctasks[],
       ;
   };
 };
-/* end thread producer function */
 
-/* thread consumer function */
+
 void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
+// thread consumer function 
 
-  int val = 0, mask = 0, ntasks = ntasksp1 - 1;
-  std::vector<int> vals(ntrey, 0);
+  int num = 0, mask = 0, ntasks = ntasksp1 - 1;
+  std::vector<int> nums(ntrey, 0);
 
   // lambda pop_mask pops NaNs flag encoded inside int mask from rb
   // it happens every ntrey elements, and at the latest incomplete trey
@@ -66,20 +66,20 @@ void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
 #ifdef DEBUG
     std::cout << "pop  mask = " << mask << "; " << std::endl;
 #endif
-    utils::consumer_worker(vals[1], vals[2], vals[0], mask);
+    utils::consumer_worker(nums[1], nums[2], nums[0], mask);
   };
 
   for (int i = 1; i < ntasksp1; ++i) {
-    while (!rb.pop(val))
+    while (!rb.pop(num))
       ;
 #ifdef DEBUG
-    std::cout << "pop  val = " << val << "; " << std::endl;
+    std::cout << "pop  num = " << num << "; " << std::endl;
 #endif
-    int idx_of_trey = (i % ntrey);
-    bool trey_ready = (idx_of_trey == 0);
+    int trey_pos = (i % ntrey);
+    bool trey_ready = (trey_pos == 0);
     bool trey_last = (i == ntasks);
 
-    vals[idx_of_trey] = val;
+    nums[trey_pos] = num;
 
     if (trey_ready)
       pop_mask();
@@ -90,27 +90,25 @@ void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
 /* end thread consumer function */
 
 
-/*-----------------------------------------------------------------------------
-producer_worker  reads element; 
-it returnd  true if the element is garbage, and false otherwise 
--------------------------------------------------------------------------------*/
-bool utils::producer_worker(char *s, int &val) {
+bool utils::producer_worker(char *msg, int &num) {
+// producer_worker  reads element; 
+// it returnd  true if the element is garbage, and false otherwise 
   try {
-    val = std::stoi(s);
+    num = std::stoi(msg);
     return false;
   } catch (const std::invalid_argument &e) {
-    val = 0;
+    num = 0;
     return true;
   }
 };
 
 
-/*-----------------------------------------------------------------------------
-consumer_worker  for trey (a, b, c) with mask
-solves eqution a*x^2 + b*x + c = 0 and finds extermum
--------------------------------------------------------------------------------*/
-void utils::consumer_worker(int const &a, int const &b, int const &c,
-                            int const &mask) {
+void utils::consumer_worker(const int &a, 
+                            const int &b, 
+                            const int &c,
+                            const int &mask) {
+// consumer_worker for trey (a, b, c) with mask
+// solves eqution a*x^2 + b*x + c = 0 and finds extermum
 
   std::ostringstream strey, sroot, sxmin;
   strey << "(";
@@ -125,7 +123,7 @@ void utils::consumer_worker(int const &a, int const &b, int const &c,
   }
 
   // type_trey enum variable fort switch/case below
-  auto type_trey = static_cast<utils::TypeTrey>(
+  auto trey_type = static_cast<utils::TreyType>(
       (mask << 3) | (((c == 0 & !f_nan[2]) << 2) | ((b == 0 & !f_nan[1]) << 1) | (a == 0 & !f_nan[0])));
 #ifdef DEBUG
   std::cout << "type_trey: " << type_trey << "; " << std::endl;
@@ -178,7 +176,7 @@ void utils::consumer_worker(int const &a, int const &b, int const &c,
   };
 
   // solves square equations depending on type_trey
-  switch (type_trey) {
+  switch (trey_type) {
   case e_ABC: {
     s_two_roots();
     break;

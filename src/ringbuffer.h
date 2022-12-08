@@ -1,12 +1,24 @@
-#ifndef RINGBUFFER_H_
-#define RINGBUFFER_H_
+// ringbuffer.h                                                      -*-C++-*-
+#ifndef INCLUDED_SQUARE_SOLVER_RINGBUFFER
+#define INCLUDED_SQUARE_SOLVER_RINGBUFFER
+
 
 #include <atomic>
 #include <thread>
 #include <vector>
 
-/*---------------------------------------------------------------------------*\
 
+namespace ringbuffer{
+
+// nelem is the number of elements in RingBuffer
+constexpr int nelem = 19;
+
+// ==================
+//  struct RingBuffer
+// ==================
+struct RingBuffer {
+
+/*---------------------------------------------------------------------------*\
 Ring(circular) biffer is preallocated storage of size nelem cells.
 The buffer has two indexes readIx and writeIx (pointers)  to read and write
 into the cells. When readIx = writeIx, the buffer is empty independently of
@@ -22,15 +34,8 @@ consumer.
 The ring buffer allows lock-free parallel writing/reading threads in the same
 buffer by means of atomic operations to prohibit simultaneous write/read with
 the same cell.
-
 \*---------------------------------------------------------------------------*/
 
-namespace ringbuffer {
-
-// nelem is the number of elements in RingBuffer
-constexpr int nelem = 19;
-
-struct RingBuffer {
   // keeps data
   std::vector<int> data_{};
 
