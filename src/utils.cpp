@@ -49,6 +49,7 @@ void utils::producer(int &ntasksp1, char *ctasks[],
       ;
   };
 };
+/* end thread producer function */
 
 /* thread consumer function */
 void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
@@ -86,9 +87,13 @@ void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
       pop_mask();
   };
 };
+/* end thread consumer function */
 
-/* producer_worker  reads element; it is true if it's garbage, and false
- * otherwise */
+
+/*-----------------------------------------------------------------------------
+producer_worker  reads element; 
+it returnd  true if the element is garbage, and false otherwise 
+-------------------------------------------------------------------------------*/
 bool utils::producer_worker(char *s, int &val) {
   try {
     val = std::stoi(s);
@@ -99,7 +104,11 @@ bool utils::producer_worker(char *s, int &val) {
   }
 };
 
-/* consumer_worker  for trey (a, b, c) */
+
+/*-----------------------------------------------------------------------------
+consumer_worker  for trey (a, b, c) with mask
+solves eqution a*x^2 + b*x + c = 0 and finds extermum
+-------------------------------------------------------------------------------*/
 void utils::consumer_worker(int const &a, int const &b, int const &c,
                             int const &mask) {
 
@@ -115,15 +124,31 @@ void utils::consumer_worker(int const &a, int const &b, int const &c,
     strey << " " << (!f_nan[k] ? std::to_string(vals[k]) : "NaN");
   }
 
+  // type_trey enum variable fort switch/case below
   auto type_trey = static_cast<utils::TypeTrey>(
       (mask << 3) | (((c == 0 & !f_nan[2]) << 2) | ((b == 0 & !f_nan[1]) << 1) | (a == 0 & !f_nan[0])));
 #ifdef DEBUG
   std::cout << "type_trey: " << type_trey << "; " << std::endl;
 #endif
 
+  // variables for square eqiation and extremun
   auto d2 = 0.0f, d = 0.0f, b2 = b / 2.0f, x1 = 0.0f, x2 = 0.0f, xmin = 0.0f;
 
-  // auxalliry lambda's for  particular square equatons and extrema
+  // auxalliry lambda's for  particular treys
+  auto s_two_roots = [&]() {
+    d2 = pow(b2, 2) - a * c;
+    if (d2 >= 0) {
+      d = sqrt(d2);
+      x1 = (-b2 - d) / a;
+      x2 = (-b2 + d) / a;
+      sroot << " roots: (" << x1 << ", " << x2 << ")";
+    } else {
+      sroot << " no roots, Discr < 0";
+    }
+    xmin = -b / (2.0f * a);
+    sxmin << "extremum Xmin=" << xmin;
+  };
+
   auto s_no_roots = [&]() {
     sroot << " no roots";
     sxmin << " no extremum";
@@ -155,56 +180,37 @@ void utils::consumer_worker(int const &a, int const &b, int const &c,
   // solves square equations depending on type_trey
   switch (type_trey) {
   case e_ABC: {
-    d2 = pow(b2, 2) - a * c;
-    if (d2 >= 0) {
-      d = sqrt(d2);
-      x1 = (-b2 - d) / a;
-      x2 = (-b2 + d) / a;
-      sroot << " roots: (" << x1 << ", " << x2 << ")";
-    } else {
-      sroot << " no roots, Discr < 0";
-    }
-    xmin = -b / (2.0f * a);
-    sxmin << "extremum Xmin=" << xmin;
+    s_two_roots();
     break;
   }
-  case e_0BC: { // a=0
+  case e_0BC: { 
     x1 = -b / c;
     sroot << " roots: (" << x1 << ")";
     sxmin << "not bounded";
     break;
   }
-  case e_A0C: { // b=0
-    d2 = -c / (1.0f * a);
-    if (d2 >= 0) {
-      d = sqrt(d2);
-      x1 = -d;
-      x2 = d;
-      sroot << " roots: (" << x1 << ", " << x2 << ")";
-    } else {
-      sroot << " no roots, Discr < 0";
-    }
-    sxmin << "extremum Xmin=0";
+  case e_A0C: { 
+    s_two_roots();
     break;
   }
-  case e_00C: { // a=b=0
+  case e_00C: { 
     s_no_roots();
     break;
   }
-  case e_AB0: { // c=0
+  case e_AB0: { 
     s_AB0_ABx();
     break;
   }
-  case e_0B0: { // a=c=0
+  case e_0B0: { 
     s_xB0_0Bx_0B0();
     break;
   }
-  case e_A00: { // b=c=0
+  case e_A00: { 
     sroot << " roots: ( 0 )";
     sxmin << " extremum Xmin=0";
     break;
   }
-  case e_000: { // a=b=c=0
+  case e_000: { 
     s_any_roots();
     break;
   }
@@ -227,16 +233,7 @@ void utils::consumer_worker(int const &a, int const &b, int const &c,
     break;
   }
   case e_AxC: {
-    d2 = -c / (1.0f * a);
-    if (d2 >= 0) {
-      d = sqrt(d2);
-      x1 = -d;
-      x2 = d;
-      sroot << " roots: (" << x1 << ", " << x2 << ")";
-    } else {
-      sroot << " no roots, Discr < 0";
-    }
-    sxmin << "extremum Xmin=0";
+    s_two_roots();
     break;
   }
   case e_0xC: {
