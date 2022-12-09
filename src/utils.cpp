@@ -81,10 +81,15 @@ void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
 
     nums[trey_pos] = num;
 
-    if (trey_ready)
+    if (trey_ready) {
       pop_mask();
-    else if (trey_last)
-      pop_mask();
+      nums.assign(ntrey, 0);
+    }
+    else {
+      if (trey_last) { 
+        pop_mask();
+      }
+    }
   };
 };
 /* end thread consumer function */
