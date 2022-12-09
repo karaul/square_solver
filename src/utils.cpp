@@ -41,8 +41,12 @@ void utils::producer(int &ntasksp1, char*ctasks[], ringbuffer::RingBuffer&rb){
     if (trey_ready) {
       push_mask();
       flags.assign(ntrey, true);
-    } else if (trey_last)
-      push_mask();
+    } 
+    else { 
+      if (trey_last) {
+        push_mask();
+      }
+    }  
 
     while (rb.readIx_.load(std::memory_order_relaxed) !=
            rb.writeIx_.load(std::memory_order_relaxed))
