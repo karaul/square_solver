@@ -74,7 +74,7 @@ public:
   // define type of the trey depending on zeros and NaN distribution
   TreyType getType();
 
-  // void worker(const int &a, const int &b, const int &c, const int &mask);
+  // solves square equation depending on the type
   void worker();
 };
 
