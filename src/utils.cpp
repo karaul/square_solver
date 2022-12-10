@@ -10,12 +10,10 @@ void utils::producer(int &ntasksp1, char*ctasks[], ringbuffer::RingBuffer&rb){
 // thread producer function 
   
   int num = 0, mask = 0, ntasks = ntasksp1 - 1;
-  std::vector<bool> flags(3, true);
 
   // lambda push_mask pushes NaNs flag encoded with int mask into rb
   // it happens every ntrey elements, and at the lates incomplete trey
   auto push_mask = [&]() {
-    mask = (flags[0] << 2) | (flags[2] << 1) | flags[1];
     while (!rb.push(mask))
       ;
 #ifdef DEBUG
@@ -23,31 +21,29 @@ void utils::producer(int &ntasksp1, char*ctasks[], ringbuffer::RingBuffer&rb){
 #endif
   };
 
+  int trey_pos = 0;
   for (int i = 1; i < ntasksp1; ++i) {
-    int trey_pos = (i % ntrey);
-    // trey_pos = 1, the 1st element (a) is in the trey
-    // trey_pos = 2, the 2nd element (b) is in the trey
-    // trey_pos = 0, the 3rd element (c), i.e. the trey is full,
-    bool trey_ready = (trey_pos == 0);
-    bool trey_last = (i == ntasks);
-
-    flags[trey_pos] = producer_worker(ctasks[i], num);
-
+    mask = mask + (producer_worker(ctasks[i], num) << trey_pos); 
     while (!rb.push(num))
       ;
 #ifdef DEBUG
     std::cout << "push  num = " << num << "; " << std::endl;
 #endif
+    ++trey_pos;
+    bool trey_ready = (trey_pos == ntrey);
+    bool trey_last = (i == ntasks);
+
     if (trey_ready) {
       push_mask();
-      flags.assign(ntrey, true);
+      trey_pos = 0;
+      mask = 0;
     } 
     else { 
       if (trey_last) {
         push_mask();
       }
     }  
-
+    
     while (rb.readIx_.load(std::memory_order_relaxed) !=
            rb.writeIx_.load(std::memory_order_relaxed))
       ;
@@ -70,24 +66,26 @@ void utils::consumer(int &ntasksp1, ringbuffer::RingBuffer &rb) {
 #ifdef DEBUG
     std::cout << "pop  mask = " << mask << "; " << std::endl;
 #endif
-    utils::consumer_worker(nums[1], nums[2], nums[0], mask);
+    utils::consumer_worker(nums[0], nums[1], nums[2], mask);
   };
 
+  int trey_pos = 0;
   for (int i = 1; i < ntasksp1; ++i) {
     while (!rb.pop(num))
       ;
 #ifdef DEBUG
     std::cout << "pop  num = " << num << "; " << std::endl;
 #endif
-    int trey_pos = (i % ntrey);
-    bool trey_ready = (trey_pos == 0);
-    bool trey_last = (i == ntasks);
 
     nums[trey_pos] = num;
+    ++trey_pos;
+    bool trey_ready = (trey_pos == ntrey);
+    bool trey_last = (i == ntasks);
 
     if (trey_ready) {
       pop_mask();
       nums.assign(ntrey, 0);
+      trey_pos = 0;
     }
     else {
       if (trey_last) { 
@@ -135,7 +133,7 @@ void utils::consumer_worker(const int &a,
   auto trey_type = static_cast<utils::TreyType>(
       (mask << 3) | (((c == 0 & !f_nan[2]) << 2) | ((b == 0 & !f_nan[1]) << 1) | (a == 0 & !f_nan[0])));
 #ifdef DEBUG
-  std::cout << "type_trey: " << type_trey << "; " << std::endl;
+  std::cout << "type_trey: " << trey_type << "; " << std::endl;
 #endif
 
   // variables for square eqiation and extremun
