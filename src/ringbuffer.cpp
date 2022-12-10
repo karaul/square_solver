@@ -5,7 +5,7 @@
 #include "ringbuffer.h"
 
 bool ringbuffer::RingBuffer::push(int val) {
-// write val into data at location given writeIx
+  // write val into data at location given writeIx
   auto const writeIx = writeIx_.load(std::memory_order_relaxed);
   auto writeIxNext = writeIx + 1;
   if (writeIxNext == data_.size()) {
@@ -22,7 +22,7 @@ bool ringbuffer::RingBuffer::push(int val) {
 }
 
 bool ringbuffer::RingBuffer::pop(int &val) {
-// read val from data at location given readIx
+  // read val from data at location given readIx
   auto const readIx = readIx_.load(std::memory_order_relaxed);
   if (readIx == writeIx_.load(std::memory_order_acquire)) {
     return false;
@@ -37,4 +37,9 @@ bool ringbuffer::RingBuffer::pop(int &val) {
   readIx_.store(readIxNext, std::memory_order_release);
 
   return true;
+}
+
+bool ringbuffer::RingBuffer::isempty() {
+  return (readIx_.load(std::memory_order_relaxed) ==
+          writeIx_.load(std::memory_order_relaxed));
 }

@@ -6,7 +6,7 @@ project(square_solver VERSION 0.70)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/ringbuffer.cpp src/utils.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/ringbuffer.cpp src/utils.cpp src/roots.cpp src/treys.cpp)
 
 find_package (Threads)
 

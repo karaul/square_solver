@@ -1,9 +1,5 @@
 /*---------------------------------------------------------------------------*\
 
- Solution of the Coding Assigment for Teknavo
- Evgeny Votyakov, karaul@gmail.com
- December 2022, Nicosia, Cyprus
-
  The code solves Single Producer - Single Consumer (SPSC) problem with
  two parallel  threads. Ring Buffer with atomic indexes is used as storage.
 
@@ -41,21 +37,20 @@ with DEBUG
 #include <iostream>
 
 #include "ringbuffer.h"
-#include "trey.h"
+#include "treys.h"
 #include "utils.h"
 
 int main(int argc, char **argv) {
-
-  // argc below is used in the for loops producer and consumer
-  // argc-1 is equal to the number of the latest element
 
   // uncomment variable tic for profiling
   // auto tic = std::chrono::steady_clock::now();
 
   ringbuffer::RingBuffer rb(ringbuffer::nelem);
 
+  treys::Trey trey;
+
   std::thread t1(utils::producer, std::ref(argc), std::ref(argv), std::ref(rb));
-  std::thread t2(utils::consumer, std::ref(argc), std::ref(rb));
+  std::thread t2(utils::consumer, std::ref(argc), std::ref(rb), std::ref(trey));
 
   t1.join();
   t2.join();
