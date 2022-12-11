@@ -43,7 +43,7 @@ void utils::consumer(const int &ntasksp1, ringbuffer::RingBuffer &rb,
 
   int ntasks = ntasksp1 - 1;
 
-  int trey_pos = 0;
+  int trey_pos = 0, mask = 0;
   for (int i = 1; i < ntasksp1; ++i) {
     while (!rb.pop(trey.nums[trey_pos]))
       ;
@@ -54,16 +54,16 @@ void utils::consumer(const int &ntasksp1, ringbuffer::RingBuffer &rb,
     bool trey_last = (i == ntasks);
 
     if (trey_ready) {
-      while (!rb.pop(trey.mask))
+      while (!rb.pop(mask))
         ;
-      trey.worker();
+      trey(mask);
       trey.nums.assign(ntrey, 0);
       trey_pos = 0;
     } else {
       if (trey_last) {
-        while (!rb.pop(trey.mask))
+        while (!rb.pop(mask))
           ;
-        trey.worker();
+        trey(mask);
       }
     }
   };

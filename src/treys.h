@@ -5,10 +5,7 @@
 #include <bitset>
 #include <iomanip>
 #include <iostream>
-#include <math.h>
 #include <vector>
-
-#include "roots.h"
 
 // size of the trey,
 // DO NOT change
@@ -58,24 +55,22 @@ enum TreyType {
 };
 
 class Trey {
-  
+
+  // coefficients are private and allocated once
   float a, b, c;
-  std::ostringstream strey, sroot, sxmin;
 
 public:
   // nums={a,b,c}, it is public in order to be set directly from consumer
   std::vector<int> nums;
-  //  mask stores NaN distribuiton (a,b,c), to be set directly from consumer
-  int mask;
 
   // default constructor
   Trey() : nums(ntrey){};
 
-  // define type of the trey depending on zeros and NaN distribution
-  TreyType getType();
+  // define type of the trey depending on its zeros and NaN distribution
+  TreyType getType(const int &, std::ostringstream &);
 
   // solves square equation depending on the type
-  void worker();
+  void operator()(const int &);
 };
 
 } // namespace treys

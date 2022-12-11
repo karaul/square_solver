@@ -4,49 +4,48 @@
 #include <math.h>
 #include <vector>
 
+#include "roots.h"
 #include "treys.h"
 
 // define type of the trey depending on NaN and zedos distribution
-treys::TreyType treys::Trey::getType() {
+treys::TreyType treys::Trey::getType(const int &mask,
+                                     std::ostringstream &strey) {
+
   std::bitset<ntrey> f_nan(mask);
-
-  // clear output strings
-  strey.str(std::string());
   strey << "(";
-
   for (int k = 0; k < ntrey; ++k) { // output "( a b c)" in strey with NaN
                                     // recognition based on trey_flag
     strey << " " << (!f_nan[k] ? std::to_string(this->nums[k]) : "NaN");
   }
+  strey << ")";
 
   // type_trey enum variable fort switch/case below
   auto type = static_cast<TreyType>((mask << 3) |
                                     (((this->nums[2] == 0 & !f_nan[2]) << 2) |
                                      ((this->nums[1] == 0 & !f_nan[1]) << 1) |
-                                     (this->nums[0] == 0 & !f_nan[0])));
+                                      (this->nums[0] == 0 & !f_nan[0])));
 #ifdef DEBUG
   std::cout << "type: " << type << "; " << std::endl;
 #endif
   return type;
 }
 
-void treys::Trey::worker() {
+void treys::Trey::operator()(const int &mask) {
   // consumer_worker for trey (a, b, c) with mask
   // solves eqution a*x^2 + b*x + c = 0 and finds extermum
 
-  // clear output strings
-  sroot.str(std::string());
-  sxmin.str(std::string());
+  std::ostringstream strey, sroot, sxmin;
 
   sroot << std::fixed << std::setprecision(3);
   sxmin << std::fixed << std::setprecision(3);
 
-  auto a = (float)this->nums[0], b = (float)this->nums[1],
-       c = (float)this->nums[2];
-
-  auto type = this->getType();
+  // define type of the trey
+  auto type = this->getType(mask, strey);
 
   // variables for square eqiation and extremum
+  auto a = (float)this->nums[0], 
+       b = (float)this->nums[1],
+       c = (float)this->nums[2];
   auto x1 = 0.0f, x2 = 0.0f, xmin = 0.0f;
 
   // auxalliry lambda's for formatted output depending on the case
@@ -203,6 +202,6 @@ void treys::Trey::worker() {
   };
 
   // final formatted output
-  std::cout << strey.str() << ") => " << sroot.str() << "  " << sxmin.str()
+  std::cout << strey.str() << " => " << sroot.str() << "  " << sxmin.str()
             << std::endl;
 };
