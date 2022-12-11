@@ -7,7 +7,8 @@
 #include "utils.h"
 
 // thread producer function
-void utils::producer(int &ntasksp1, char *ctasks[],
+void utils::producer(int &ntasksp1, 
+                     char *ctasks[],
                      ringbuffer::RingBuffer &rb) {
 
   int num = 0, mask = 0, ntasks = ntasksp1 - 1;
@@ -27,6 +28,7 @@ void utils::producer(int &ntasksp1, char *ctasks[],
       mask = 0;
     } else {
       if (trey_last) {
+        for(int k=trey_pos; k < ntrey; ++k) mask |= (1U << k);
         while (!rb.push(mask))
           ;
       }
@@ -38,7 +40,8 @@ void utils::producer(int &ntasksp1, char *ctasks[],
 };
 
 // thread consumer function
-void utils::consumer(const int &ntasksp1, ringbuffer::RingBuffer &rb,
+void utils::consumer(const int &ntasksp1, 
+                     ringbuffer::RingBuffer &rb,
                      treys::Trey &trey) {
 
   int ntasks = ntasksp1 - 1;
@@ -47,8 +50,6 @@ void utils::consumer(const int &ntasksp1, ringbuffer::RingBuffer &rb,
   for (int i = 1; i < ntasksp1; ++i) {
     while (!rb.pop(trey.nums[trey_pos]))
       ;
-
-    // trey.nums[trey_pos] = num;
     ++trey_pos;
     bool trey_ready = (trey_pos == ntrey);
     bool trey_last = (i == ntasks);
