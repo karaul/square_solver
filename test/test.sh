@@ -1,13 +1,9 @@
 #!/bin/bash
 
-MAXCOUNT=50
-count=1
+while read line; do 
+    ARGS=$( echo $line | sed 's/^.*exe//1;'  )
+    echo 
+    echo $ARGS
+    ../build/square_solver $ARGS
+done < test.txt
 
-test="$1"
-
-while [ "$count" -le $MAXCOUNT ]; do
- test=$test" "$RANDOM
- let "count += 1"
-done
-
-echo $test
