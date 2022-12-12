@@ -77,9 +77,14 @@ bool utils::producer_worker(char *msg, int &num) {
     num = std::stoi(msg);
     return false;
   } catch (const std::invalid_argument &e) {
-    num = 0;
-    return true;
+    //num = 0;
+    //return true;
+  } catch (const std::out_of_range &e) {
+    //num = 0;
+    //return true;
   }
+  num = 0;
+  return true;
 };
 
 //  consumer_worker is defined as Trey.worker() in the treys.h
