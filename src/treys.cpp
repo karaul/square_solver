@@ -36,8 +36,8 @@ void treys::Trey::operator()(const int &mask) {
 
   std::ostringstream strey, sroot, sxmin;
 
-  sroot << std::fixed << std::setprecision(3);
-  sxmin << std::fixed << std::setprecision(3);
+  sroot << std::fixed  << std::setprecision(3) << std::scientific;
+  sxmin << std::fixed  << std::setprecision(3) << std::scientific;
 
   // define type of the trey
   auto type = this->getType(mask, strey);
