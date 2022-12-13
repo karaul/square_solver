@@ -1,102 +1,102 @@
 
 1 2 3
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
 
 0 0 0
 ( 0 0 0) =>  roots any   extremum any
 
 0 0 0 1 2 3
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
 
 0 0 0 1 2 3 1 2 3 1 2 3 1 2 3
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
 
 0 0 0 1 2 3 1 2 3 1 2 3 1 2 3
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
 
 0 0 0 1 2 3 1 2 3 1 2 3 - 1 2 3
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( NaN 1 2) =>  roots: (-2.000)  not bounded
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( NaN 1 2) =>  roots: (-2.000e+00)  not bounded
 ( 3 NaN NaN) =>  no roots   no extremum
 
 0 0 0 1 2 3 1 2 3 1 2 3 one 2 3
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( NaN 2 3) =>  roots: (-1.500)  not bounded
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( NaN 2 3) =>  roots: (-1.500e+00)  not bounded
 
 0 0 0 1 2 3 1 2 3 1 2 3 2 3 0
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 2 3 0) =>  roots: (-1.500, 0.000)  extremum Xmin=-1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 2 3 0) =>  roots: (-1.500e+00, 0.000e+00)  extremum Xmin=-1.500e+00
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 +3 0
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 +3 0 2222222222222222222222222 333333333333333333333333333333333333333333333
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
 ( NaN NaN NaN) =>  no roots   no extremum
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222222222222222222222 333333333333333333333333333333333333333333333
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
 ( NaN NaN NaN) =>  no roots   no extremum
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222222222222222222222 33333333333333333333
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
 ( NaN NaN NaN) =>  no roots   no extremum
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222222222222222222222 333
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
 ( NaN 333 NaN) =>  no roots   no extremum
 
 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222 333
 ( 0 0 0) =>  roots any   extremum any
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000
-( -2 3 0) =>  roots: (1.500, -0.000)  extremum Xmin=1.500
-( 2222222 333 NaN) =>  roots: (-0.000, 0.000)  extremum Xmin=-0.000
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( 1 2 3) =>  no roots (Discr < 0)  extremum Xmin=-2.000e+00
+( -2 3 0) =>  roots: (1.500e+00, -0.000e+00)  extremum Xmin=1.500e+00
+( 2222222 333 NaN) =>  roots: (-1.499e-04, 0.000e+00)  extremum Xmin=-1.499e-04
 
 
