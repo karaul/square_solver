@@ -21,9 +21,9 @@ treys::TreyType treys::Trey::getType(const int &mask,
 
   // type_trey enum variable fort switch/case below
   auto type = static_cast<TreyType>((mask << 3) |
-                                    (((this->nums[2] == 0 & !f_nan[2]) << 2) |
-                                     ((this->nums[1] == 0 & !f_nan[1]) << 1) |
-                                      (this->nums[0] == 0 & !f_nan[0])));
+                                    ((((this->nums[2] == 0) & !f_nan[2]) << 2) |
+                                     (((this->nums[1] == 0) & !f_nan[1]) << 1) |
+                                      ((this->nums[0] == 0) & !f_nan[0])));
 #ifdef DEBUG
   std::cout << "type: " << type << "; " << std::endl;
 #endif
@@ -43,7 +43,7 @@ void treys::Trey::operator()(const int &mask) {
   auto type = this->getType(mask, strey);
 
   // variables for square eqiation and extremum
-  auto a = (float)this->nums[0], 
+  a = (float)this->nums[0], 
        b = (float)this->nums[1],
        c = (float)this->nums[2];
   auto x1 = 0.0f, x2 = 0.0f, xmin = 0.0f;

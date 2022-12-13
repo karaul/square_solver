@@ -13,3 +13,4 @@ PS E:\Project2022\BBG\HWandPeople\DmitryLinev\20221209\QuadEqSolver\bin\app\Debu
 PS E:\Project2022\BBG\HWandPeople\DmitryLinev\20221209\QuadEqSolver\bin\app\Debug> .\SolverApp.exe 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222222222222222222222 33333333333333333333
 PS E:\Project2022\BBG\HWandPeople\DmitryLinev\20221209\QuadEqSolver\bin\app\Debug> .\SolverApp.exe 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222222222222222222222 333
 PS E:\Project2022\BBG\HWandPeople\DmitryLinev\20221209\QuadEqSolver\bin\app\Debug> .\SolverApp.exe 0 0 0 1 2 3 1 2 3 1 2 3 -2 3 0 2222222 333
+
